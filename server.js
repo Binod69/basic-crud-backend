@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db.config');
-const Product = require('./models/product.models');
+const errorMiddleware = require('./src/middleware/error.middleware');
 
 //CONNECT TO DATABASE
 connectDB();
@@ -14,11 +14,13 @@ app.use(
   })
 );
 
-const routes = require('./routes/index');
 //ROUTES START
+const routes = require('./routes/index');
 app.use('/api/v1', routes);
-
 //ROUTES END
+
+//ERROR MIDDLEWARE
+app.use(errorMiddleware);
 
 //SERVER
 const PORT = process.env.PORT || 3001;

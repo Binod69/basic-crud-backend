@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-  res.send('Api is running');
+  throw new Error('fake error');
+  // res.send('Api is running');
 });
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Product = require('../../models/product.models');
 
+//CREATE A NEW PRODUCTS
 const postProducts = async (req, res) => {
   try {
     const product = await Product.create(req.body);
@@ -10,6 +11,7 @@ const postProducts = async (req, res) => {
   }
 };
 
+//GET ALL PRODUCTS
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -20,6 +22,7 @@ const getProducts = async (req, res) => {
   }
 };
 
+//GET PRODUCTS BY ID
 const getProductsById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -31,6 +34,7 @@ const getProductsById = async (req, res) => {
   }
 };
 
+//UPDATE OR EDIT PRODUCTS
 const updateProducts = async (req, res) => {
   try {
     const { id } = req.params;
@@ -48,6 +52,7 @@ const updateProducts = async (req, res) => {
   }
 };
 
+//DELETE PRODUCTS
 const deleteProducts = async (req, res) => {
   const { id } = req.params;
   try {
