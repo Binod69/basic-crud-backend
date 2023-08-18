@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/db.config');
 const errorMiddleware = require('./src/middleware/error.middleware');
 
@@ -11,6 +12,11 @@ app.use(express.json());
 app.use(
   express.urlencoded({
     extended: false,
+  })
+);
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
   })
 );
 
