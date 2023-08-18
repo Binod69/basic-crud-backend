@@ -1,41 +1,42 @@
 const Product = require('../../models/product.models');
+const asyncHandler = require('express-async-handler');
 
 //CREATE A NEW PRODUCTS
-const postProducts = async (req, res) => {
+const postProducts = asyncHandler(async (req, res) => {
   try {
     const product = await Product.create(req.body);
     res.status(200).json(product);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
-};
+});
 
 //GET ALL PRODUCTS
-const getProducts = async (req, res) => {
+const getProducts = asyncHandler(async (req, res) => {
   try {
     const products = await Product.find({});
     res.status(200).json(products);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
-};
+});
 
 //GET PRODUCTS BY ID
-const getProductsById = async (req, res) => {
+const getProductsById = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
     const products = await Product.findById(id);
     res.status(200).json(products);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
-};
+});
 
 //UPDATE OR EDIT PRODUCTS
-const updateProducts = async (req, res) => {
+const updateProducts = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
     const products = await Product.findByIdAndUpdate(id, req.body);
@@ -47,13 +48,12 @@ const updateProducts = async (req, res) => {
     const updatedProduct = await Product.findById(id);
     res.status(200).json(updatedProduct);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
-};
-
+});
 //DELETE PRODUCTS
-const deleteProducts = async (req, res) => {
+const deleteProducts = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
     const products = await Product.findByIdAndDelete(id);
@@ -64,10 +64,10 @@ const deleteProducts = async (req, res) => {
     }
     res.status(200).json(products);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
-};
+});
 
 module.exports = {
   postProducts,
