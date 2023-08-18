@@ -20,7 +20,54 @@ const getProducts = async (req, res) => {
   }
 };
 
+const getProductsById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const products = await Product.findById(id);
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const updateProducts = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const products = await Product.findByIdAndUpdate(id, req.body);
+    if (!products) {
+      return res
+        .status(404)
+        .json({ message: `cannot find any product : ${id}` });
+    }
+    const updatedProduct = await Product.findById(id);
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteProducts = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const products = await Product.findByIdAndDelete(id);
+    if (!products) {
+      return res
+        .status(404)
+        .json({ message: `cannot delete any product : ${id}` });
+    }
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   postProducts,
   getProducts,
+  getProductsById,
+  updateProducts,
+  deleteProducts,
 };
