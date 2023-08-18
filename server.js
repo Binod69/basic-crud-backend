@@ -1,5 +1,10 @@
 require('dotenv').config();
 const express = require('express');
+const connectDB = require('./config/db.config');
+
+//CONNECT TO DATABASE
+connectDB();
+
 const app = express();
 
 //ROUTES START
